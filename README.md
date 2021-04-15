@@ -11,7 +11,7 @@ Disusun oleh :
 **Deskripsi:**\
 Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
 
-**Note:**\
+**Note:**
 - Tidak boleh menggunakan system() dan mkdir()
 - Program utama merupakan SEBUAH PROGRAM C
 - Wajib memuat algoritma Caesar Cipher pada program utama yang dibuat
@@ -120,5 +120,7 @@ int main() {
 * Perintah `wget` berfungsi untuk mendowload otomatis
 
 
-  
+ # Dokumentasi no 3 
 <img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
+
+* pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
