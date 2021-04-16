@@ -92,6 +92,11 @@ int main(){
 - intinya pada tiap child tersebut akan membuat masing-masing folder yang bernama: `Musyik`, `Fylm`, `Pyoto`
 - `while(wait(NULL) != child_id);` dan variabel tersebut berfungsi agar menunggu selesai foldernya dahulu lalu dilanjutkan selanjutnya agar tidak bertabrakan outputnya
 
+## Soal 1b
+**Deskripsi:**\
+ untuk musik Steven mendownloadnya dari link di bawah, film dari link di bawah lagi, dan foto dari link dibawah juga
+ 
+ **Pembahasan:**\
 ```
  child_id = fork();
     if (child_id == 0) {
