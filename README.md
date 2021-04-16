@@ -60,7 +60,7 @@ int main() {
     if (child_id < 0){
         exit(EXIT_FAILURE);
     }
-    ```
+```
 * Keluar pada saat fork gagal `pid < 0`
 
 ```c
@@ -69,7 +69,8 @@ int main() {
         char *argv[] = {"mkdir", "-p", str, NULL};
 	  	  execv("/bin/mkdir", argv);
     }
-    ```
+```
+
 * Jika `pid == 0` akan melakukan process di `fork()` dan *child process* dan akan melakukan `execv()` terhadap perintah `mkdir` dengan *argument* `now`
 
 ```c
@@ -96,6 +97,17 @@ int main() {
  * jika tidak, maka `child_id` akan menunggu dan melakukan proses `child2`
  * pada bagian `for (int i = 0; i < 10; i++)` akan melakukan perulangan download gambar sebanyak 10 kali pada setiap folder
  
+# Dokumentasi no 3a
+<img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
+
+* pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
+
+
+## Soal 3b
+**Deskripsi:**
+Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari https://picsum.photos/, dimana setiap gambar akan didownload setiap 5 detik. Setiap gambar yang didownload akan diberi nama dengan format timestamp [YYYY-mm-dd_HH:ii:ss] dan gambar tersebut berbentuk persegi dengan ukuran (n%1000) + 50 pixel dimana n adalah detik Epoch Unix.
+
+**Pembahasan**
  ```c
            if (child3 == 0) {
 
@@ -110,6 +122,14 @@ int main() {
             execv("/usr/bin/wget", args);
 
           }
+          else{
+            wait(NULL);
+          }
+
+          sleep(5);
+
+        }
+          }
 ```
 
 * Variabel `w` berfungsi untuk menyimpan *timestamp* dalam waktu saat ini dan formatnya juga perlu diubah ke format yang lebih standar
@@ -119,8 +139,55 @@ int main() {
 * Perintah `sprintf (save, "%s/%s", str, file);` adalah perintah save file
 * Perintah `wget` berfungsi untuk mendowload otomatis
 
+# Dokumentasi 3b
+<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
+<img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
 
- # Dokumentasi no 3 
-<img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
+## Soal 3c
+**Deskripsi:**\
+Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat sebuah file “status.txt”, dimana didalamnya berisi pesan “Download Success” yang terenkripsi dengan teknik Caesar Cipher dan dengan shift 5. Caesar Cipher adalah Teknik enkripsi sederhana yang dimana dapat melakukan enkripsi string sesuai dengan shift/key yang kita tentukan. Misal huruf “A” akan dienkripsi dengan shift 4 maka akan menjadi “E”. Karena Ranora orangnya perfeksionis dan rapi, dia ingin setelah file tersebut dibuat, direktori akan di zip dan direktori akan didelete, sehingga menyisakan hanya file zip saja.
 
-* pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
+**Pembahasan**\
+```
+ chdir(str);
+        char message[100]="Download Success", ch;
+        int i, key=5;
+```
+
+* perintah `chdir` untuk memindah direktori ke folder bernama `str`
+* `char message[100]="Download Success", ch;` adalah message yang menyimpan array 100 yang bervariabel `char`yang isinya `"Dowmload Success"`
+* `key=5` adalah pergeseran huruf sebanyak 5 kali
+
+```
+    for(i = 0; message[i] != '\0'; ++i){
+          ch = message[i];
+          
+          if(ch >= 'a' && ch <= 'z'){
+            ch = ch + key;
+            
+            if(ch > 'z'){
+              ch = ch - 'z' + 'a' - 1;
+            }
+            
+            message[i] = ch;
+          }
+          else if(ch >= 'A' && ch <= 'Z'){
+            ch = ch + key;
+            
+            if(ch > 'Z'){
+              ch = ch - 'Z' + 'A' - 1;
+            }
+            
+            message[i] = ch;
+          }
+        }
+```
+* encrypt menggunakan perulangan `for loop`
+* `ch` adalah isi pesan asli
+* `for(ch >='a' && ch <= 'z')` jika `ch >= a && ch` <=z maka `ch` akan ditambah dengan `key` yang artinya di geser sebanyak 5
+* jika `ch > z` maka akan `- 'z' + 'a' -1`
+* begitu juga sama yang dialami pada 'A' dan 'Z'
+
+
+# Dokumentasi 3c
+<img src="https://user-images.githubusercontent.com/61973814/114990579-d9cf0800-9ec2-11eb-9d3a-344250f90603.png">
