@@ -9,67 +9,112 @@ Disusun oleh :
 
 ---
 # Daftar Isi
-## [Soal 1]
+* [Soal 1]
+
 Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
-- [1a] (https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021#soal-1---)
-- [1b]
-- [1c]
-- [1d]
-- [1e]
+  * [Soal 1a](#soal-1a)
+  * [Soal 1b](#soal-1b)
+  * [Soal 1c](#soal-1c)
+  * [Soal 1d](#soal-1d)
+  * [Soal 1e](#soal-1e)
 
-## [Soal 2]
-- [2a]
-- [2b]
-- [2c]
-- [2d]
-- [2e]
+* [Soal 2]
+  * [Soal 2a](#soal-2a)
+  * [Soal 2b](#soal-2b)
+  * [Soal 2c](#soal-2c)
+  * [Soal 2d](#soal-2d)
+  * [Soal 2e](#soal-2e)
 
-## [Soal 3]
+* [Soal 3]
   * [Soal 3a](#soal-3a)
   * [Soal 3b](#soal-3b)
   * [Soal 3c](#soal-3c)
   * [Soal 3d](#soal-3d)
   * [Soal 3e](#soal-3e)
-
 ---
-# Soal 1
-- Penyelesaian Soal 1a
-
-- Penyelesaian Soal 1b
-
-- Penyelesaian Soal 1c
-
-- Penyelesaian Soal 1d
-
-- Penyelesaian Soal 1e
-
-c. Steven tidak ingin isi folder yang dibuatnya berisikan zip, sehingga perlu meng-extract-nya setelah didownload
-
-d. memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
-
-e. ntuk memudahkan Steven, ia ingin semua hal di atas berjalan otomatis 6 jam sebelum waktu ulang tahun Stevany). (f) Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan nama Lopyu_Stevany.zip dan semua folder akan di delete(sehingga hanya menyisakan .zip)
 
 ## Soal 1a
 **Deskripsi:**\
+Dikarenakan Stevany sangat menyukai huruf Y, Steven ingin nama folder-foldernya adalah Musyik untuk mp3, Fylm untuk mp4, dan Pyoto untuk jpg (b) untuk musik Steven mendownloadnya dari link di bawah, film dari link di bawah lagi, dan foto dari link dibawah juga 
 
-# Soal 3
+**Pembahasan:**\
+Pertama, kami akan melakukan `#include` library yang diperlukan
+```
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <syslog.h>
+#include <string.h>
+#include <wait.h>
+#include <time.h>
+```
+- Diatas merupakan ***library*** yang digunakan untuk menunjang dan menjalankan program.
 
-a. Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
-- Penyelesaian 1a
+```
+int main(){
 
-b. Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari https://picsum.photos/, dimana setiap gambar akan didownload setiap 5 detik. Setiap gambar yang didownload akan diberi nama dengan format timestamp [YYYY-mm-dd_HH:ii:ss] dan gambar tersebut berbentuk persegi dengan ukuran (n%1000) + 50 pixel dimana n adalah detik Epoch Unix.
-- Penyelesaian 1b
+    pid_t child_id = fork();
+    if (child_id == 0) {
+        char *argv[] = {"mkdir", "-p", "Musyik", NULL};
+        execv("/bin/mkdir", argv);
+    }
+    while(wait(NULL) != child_id);
 
-c. Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat sebuah file “status.txt”, dimana didalamnya berisi pesan “Download Success” yang terenkripsi dengan teknik Caesar Cipher dan dengan shift 5. Caesar Cipher adalah Teknik enkripsi sederhana yang dimana dapat melakukan enkripsi string sesuai dengan shift/key yang kita tentukan. Misal huruf “A” akan dienkripsi dengan shift 4 maka akan menjadi “E”. Karena Ranora orangnya perfeksionis dan rapi, dia ingin setelah file tersebut dibuat, direktori akan di zip dan direktori akan didelete, sehingga menyisakan hanya file zip saja.
+    child_id = fork();
+    if (child_id == 0) {
+        char *argv[] = {"mkdir", "-p", "Fylm", NULL};
+        execv("/bin/mkdir", argv);
+    }
+    while(wait(NULL) != child_id);
 
-d. Untuk mempermudah pengendalian program, pembimbing magang Ranora ingin program tersebut akan men-generate sebuah program “Killer” yang executable, dimana program tersebut akan menterminasi semua proses program yang sedang berjalan dan akan menghapus dirinya sendiri setelah program dijalankan. Karena Ranora menyukai sesuatu hal yang baru, maka Ranora memiliki ide untuk program “Killer” yang dibuat nantinya harus merupakan program bash.
+    child_id = fork();
+    if (child_id == 0) {
+        char *argv[] = {"mkdir", "-p", "Pyoto", NULL};
+        execv("/bin/mkdir", argv);
+    }
+    while(wait(NULL) != child_id);
+```
+- intinya pada tiap child tersebut akan membuat masing-masing folder yang bernama: `Musyik`, `Fylm`, `Pyoto`
+- `while(wait(NULL) != child_id);` dan variabel tersebut berfungsi agar menunggu selesai foldernya dahulu lalu dilanjutkan selanjutnya agar tidak bertabrakan outputnya
 
-e. Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora dapat dijalankan di dalam dua mode. Untuk mengaktifkan mode pertama, program harus dijalankan dengan argumen -z, dan Ketika dijalankan dalam mode pertama, program utama akan langsung menghentikan semua operasinya Ketika program Killer dijalankan. Sedangkan untuk mengaktifkan mode kedua, program harus dijalankan dengan argumen -x, dan Ketika dijalankan dalam mode kedua, program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
+```
+ child_id = fork();
+    if (child_id == 0) {
+        char *args[] = {"wget","--no-check-certificate", "-q", 
+        "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download",
+        "-O", "Foto_for_Stevany.zip", NULL};
+        execv("/usr/bin/wget", args);
+    }
+    while(wait(NULL) != child_id)
+```
+- Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Foto_for_Stevany.zip`
+```
+    child_id = fork();
+    if (child_id == 0) {
+        char *args[] = {"wget","--no-check-certificate", "-q", 
+        "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download",
+        "-O", "Musik_for_Stevany.zip", NULL};
+        execv("/usr/bin/wget", args);
+    }
+    while(wait(NULL) != child_id);
+```
+- Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Musik_for_Stevany.zip`
+```
+    child_id = fork();
+    if (child_id == 0) {
+        char *args[] = {"wget","--no-check-certificate", "-q", 
+        "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download",
+        "-O", "Film_for_Stevany.zip", NULL};
+        execv("/usr/bin/wget", args);
+    }
+    while(wait(NULL) != child_id);
+```
+- Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Film_for_Stevany.zip`
 
-**Note:**
-- Tidak boleh menggunakan system() dan mkdir()
-- Program utama merupakan SEBUAH PROGRAM C
-- Wajib memuat algoritma Caesar Cipher pada program utama yang dibuat
 
 ## Soal 3.a
 **Deskripsi:**\
