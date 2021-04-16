@@ -10,13 +10,12 @@ Disusun oleh :
 ---
 # Daftar Isi
 * [Soal 1]
-
-Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
   * [Soal 1a](#soal-1a)
   * [Soal 1b](#soal-1b)
   * [Soal 1c](#soal-1c)
   * [Soal 1d](#soal-1d)
   * [Soal 1e](#soal-1e)
+- Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
 
 * [Soal 2]
   * [Soal 2a](#soal-2a)
