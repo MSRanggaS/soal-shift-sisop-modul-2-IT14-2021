@@ -7,7 +7,7 @@ Disusun oleh :
 - M. Shaladin Rangga (05311940000029)
 - Moh. Ibadul Haqqi (05311940000037)
 
-### Soal #
+### Soal 3
 
 a. Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
 b. Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari https://picsum.photos/, dimana setiap gambar akan didownload setiap 5 detik. Setiap gambar yang didownload akan diberi nama dengan format timestamp [YYYY-mm-dd_HH:ii:ss] dan gambar tersebut berbentuk persegi dengan ukuran (n%1000) + 50 pixel dimana n adalah detik Epoch Unix.
@@ -107,7 +107,7 @@ int main() {
  * pada bagian `for (int i = 0; i < 10; i++)` akan melakukan perulangan download gambar sebanyak 10 kali pada setiap folder
  
 # Dokumentasi no 3a
-<img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
+<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 
 * pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
 
@@ -149,7 +149,6 @@ Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari h
 * Perintah `wget` berfungsi untuk mendowload otomatis
 
 ## Dokumentasi 3b
-<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 <img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
 
 ## Soal 3c
