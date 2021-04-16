@@ -7,14 +7,23 @@ Disusun oleh :
 - M. Shaladin Rangga (05311940000029)
 - Moh. Ibadul Haqqi (05311940000037)
 
-## Soal 3.a
-**Deskripsi:**\
-Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
+### Soal #
+
+a. Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
+b. Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari https://picsum.photos/, dimana setiap gambar akan didownload setiap 5 detik. Setiap gambar yang didownload akan diberi nama dengan format timestamp [YYYY-mm-dd_HH:ii:ss] dan gambar tersebut berbentuk persegi dengan ukuran (n%1000) + 50 pixel dimana n adalah detik Epoch Unix.
+c. Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat sebuah file “status.txt”, dimana didalamnya berisi pesan “Download Success” yang terenkripsi dengan teknik Caesar Cipher dan dengan shift 5. Caesar Cipher adalah Teknik enkripsi sederhana yang dimana dapat melakukan enkripsi string sesuai dengan shift/key yang kita tentukan. Misal huruf “A” akan dienkripsi dengan shift 4 maka akan menjadi “E”. Karena Ranora orangnya perfeksionis dan rapi, dia ingin setelah file tersebut dibuat, direktori akan di zip dan direktori akan didelete, sehingga menyisakan hanya file zip saja.
+d. Untuk mempermudah pengendalian program, pembimbing magang Ranora ingin program tersebut akan men-generate sebuah program “Killer” yang executable, dimana program tersebut akan menterminasi semua proses program yang sedang berjalan dan akan menghapus dirinya sendiri setelah program dijalankan. Karena Ranora menyukai sesuatu hal yang baru, maka Ranora memiliki ide untuk program “Killer” yang dibuat nantinya harus merupakan program bash.
+e. Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora dapat dijalankan di dalam dua mode. Untuk mengaktifkan mode pertama, program harus dijalankan dengan argumen -z, dan Ketika dijalankan dalam mode pertama, program utama akan langsung menghentikan semua operasinya Ketika program Killer dijalankan. Sedangkan untuk mengaktifkan mode kedua, program harus dijalankan dengan argumen -x, dan Ketika dijalankan dalam mode kedua, program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
 
 **Note:**
 - Tidak boleh menggunakan system() dan mkdir()
 - Program utama merupakan SEBUAH PROGRAM C
 - Wajib memuat algoritma Caesar Cipher pada program utama yang dibuat
+
+## Soal 3.a
+**Deskripsi:**\
+Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
+
 **Pembahasan:**\
 Pertama, kami akan melakukan `#include` library yang diperlukan
 ```c
@@ -40,7 +49,7 @@ int main() {
     char str[50], url[100], file[100], save[100];
     int a;
 ```
-- Fungsi diatas merupakan deklarasi dari sebuah variabel
+- Fungsi diatas merupakan deklarasi dari variabel yang akan digunakan
 
 ```c
  time_t t, w;
@@ -139,7 +148,7 @@ Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari h
 * Perintah `sprintf (save, "%s/%s", str, file);` adalah perintah save file
 * Perintah `wget` berfungsi untuk mendowload otomatis
 
-# Dokumentasi 3b
+## Dokumentasi 3b
 <img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 <img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
 
@@ -189,5 +198,5 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 * begitu juga sama yang dialami pada 'A' dan 'Z'
 
 
-# Dokumentasi 3c
+## Dokumentasi 3c
 <img src="https://user-images.githubusercontent.com/61973814/114990579-d9cf0800-9ec2-11eb-9d3a-344250f90603.png">
