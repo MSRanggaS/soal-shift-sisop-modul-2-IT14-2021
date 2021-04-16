@@ -118,6 +118,7 @@ int main(){
     while(wait(NULL) != child_id)
 ```
 - Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Foto_for_Stevany.zip`
+
 ```
     child_id = fork();
     if (child_id == 0) {
@@ -197,7 +198,7 @@ child_id = fork();
 ``
 - Perintah untuk 
 
-``
+```
    child_id = fork();
     if (child_id == 0) {
     char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};
@@ -211,7 +212,7 @@ child_id = fork();
     execv("/bin/rm", argv);
     }
     while(wait(NULL) != child_id);
-``
+```
 - Perintah untuk 
 
 ## Soal 3.a
