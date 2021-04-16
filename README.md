@@ -13,32 +13,42 @@ Disusun oleh :
 ---
 * [Soal 1]
   * [Soal 1a](#soal-1a)
+  	* [Dokumentasi Soal 1a](#Dokumentasi-1a)  
   * [Soal 1b](#soal-1b)
+  	* [Dokumentasi Soal 1b](#Dokumentasi-1b)  
   * [Soal 1c](#soal-1c)
+  	* [Dokumentasi Soal 1c](#Dokumentasi-1c) 
   * [Soal 1d](#soal-1d)
+  	* [Dokumentasi Soal 1d](#Dokumentasi-1d) 
   * [Soal 1e](#soal-1e)
-  * [Dokumentasi Soal 1](#Dokumentasi-soal1)
+  	* [Dokumentasi Soal 1e](#Dokumentasi-1e) 
  
 Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
 
 ---
 * [Soal 2]
   * [Soal 2a](#soal-2a)
+  	* [Dokumentasi Soal 2](#Dokumentasi-soal2) 
   * [Soal 2b](#soal-2b)
   * [Soal 2c](#soal-2c)
   * [Soal 2d](#soal-2d)
   * [Soal 2e](#soal-2e)
-  * [Dokumentasi Soal 2](#Dokumentasi-soa2)
+  * [Dokumentasi Soal 2](#Dokumentasi-soal2)
 
 Source Code : [soal2.c]
 
 ---
 * [Soal 3]
   * [Soal 3a](#soal-3a)
+  	* [Dokumentasi Soal3a](#Dokumentasi-3a) 
   * [Soal 3b](#soal-3b)
+  	* [Dokumentasi Soal3b](#Dokumentasi-3b)
   * [Soal 3c](#soal-3c)
+  	* [Dokumentasi Soal3c](#Dokumentasi-3c) 	
   * [Soal 3d](#soal-3d)
+  	* [Dokumentasi Soal3d](#Dokumentasi-3d) 
   * [Soal 3e](#soal-3e)
+  	* [Dokumentasi Soal3e](#Dokumentasi-3e)	 
 
 Source Code : [soal3.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal3/soal3.c/)
 
@@ -160,6 +170,49 @@ child_id = fork();
 ``
 - `unzip` adalah perintah untuk mengextract file yang ada di file tersebut secara otomatis. Masing-masing ada `Foto`, `Musik`, `Film`
 
+``
+    child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"find","FOTO","-type","f","-name","*",
+                    "-exec","mv","-t","Pyoto/","{}","+",NULL};
+    execv("/bin/find", argv);
+    }
+    while(wait(NULL) != child_id);
+
+    child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"find","MUSIK","-type","f","-name","*",
+                    "-exec","mv","-t","Musyik/","{}","+",NULL};
+    execv("/bin/find", argv);
+    }
+    while(wait(NULL) != child_id);
+
+    child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"find","FILM","-type","f","-name","*",
+                    "-exec","mv","-t","Fylm/","{}","+",NULL};
+    execv("/bin/find", argv);
+    }
+    while(wait(NULL) != child_id);
+``
+- Perintah untuk 
+
+``
+   child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};
+    execv("/usr/bin/zip", argv);
+    }
+    while(wait(NULL) != child_id);
+
+    child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};
+    execv("/bin/rm", argv);
+    }
+    while(wait(NULL) != child_id);
+``
+- Perintah untuk 
 
 ## Soal 3.a
 **Deskripsi:**\
@@ -247,7 +300,7 @@ int main() {
  * jika tidak, maka `child_id` akan menunggu dan melakukan proses `child2`
  * pada bagian `for (int i = 0; i < 10; i++)` akan melakukan perulangan download gambar sebanyak 10 kali pada setiap folder
  
-# Dokumentasi no 3a
+# Dokumentasi 3a
 <img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 
 * pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
