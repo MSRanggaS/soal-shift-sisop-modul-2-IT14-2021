@@ -130,6 +130,7 @@ int main(){
     while(wait(NULL) != child_id);
 ```
 - Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Musik_for_Stevany.zip`
+
 ```
     child_id = fork();
     if (child_id == 0) {
@@ -146,8 +147,9 @@ int main(){
 **Deskripsi:**\
 Steven tidak ingin isi folder yang dibuatnya berisikan zip, sehingga perlu meng-extract-nya setelah didownload
 
-**Pembahasan:**\
-``
+**Pembahasan:**
+
+```
 child_id = fork();
     if (child_id == 0) {
         char *argv[] = {"unzip", "-q", "Foto_for_Stevany.zip", NULL};
@@ -168,10 +170,10 @@ child_id = fork();
         execv("/usr/bin/unzip", argv);
     }
     while(wait(NULL) != child_id);
-``
+```
 - `unzip` adalah perintah untuk mengextract file yang ada di file tersebut secara otomatis. Masing-masing ada `Foto`, `Musik`, `Film`
 
-``
+```
     child_id = fork();
     if (child_id == 0) {
     char *argv[] = {"find","FOTO","-type","f","-name","*",
@@ -195,7 +197,7 @@ child_id = fork();
     execv("/bin/find", argv);
     }
     while(wait(NULL) != child_id);
-``
+```
 - Perintah untuk 
 
 ```
