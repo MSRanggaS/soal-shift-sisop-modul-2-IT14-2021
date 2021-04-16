@@ -3,7 +3,7 @@
 Repository Sebagai Laporan Resmi Soal Shift Modul 2 Praktikum Sistem Operasi 2021
 Disusun oleh :
 
-- Romandhika (05311800000-)
+- Romandhika Rijal I (0531180000048)
 - M. Shaladin Rangga (05311940000029)
 - Moh. Ibadul Haqqi (05311940000037)
 
