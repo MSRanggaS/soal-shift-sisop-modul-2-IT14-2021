@@ -7,11 +7,58 @@ Disusun oleh :
 - M. Shaladin Rangga (05311940000029)
 - Moh. Ibadul Haqqi (05311940000037)
 
+---
+# Daftar Isi
+## [Soal 1]
+Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
+- [1a] (https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021#soal-1---)
+- [1b]
+- [1c]
+- [1d]
+- [1e]
+
+## [Soal 2]
+- [2a]
+- [2b]
+- [2c]
+- [2d]
+- [2e]
+
+## [Soal 3]
+  * [Soal 3a](#soal-3a)
+  * [Soal 3b](#soal-3b)
+  * [Soal 3c](#soal-3c)
+  * [Soal 3d](#soal-3d)
+  * [Soal 3e](#soal-3e)
+
+---
+# Soal 1
+- Penyelesaian Soal 1a
+
+- Penyelesaian Soal 1b
+
+- Penyelesaian Soal 1c
+
+- Penyelesaian Soal 1d
+
+- Penyelesaian Soal 1e
+
+c. Steven tidak ingin isi folder yang dibuatnya berisikan zip, sehingga perlu meng-extract-nya setelah didownload
+
+d. memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
+
+e. ntuk memudahkan Steven, ia ingin semua hal di atas berjalan otomatis 6 jam sebelum waktu ulang tahun Stevany). (f) Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan nama Lopyu_Stevany.zip dan semua folder akan di delete(sehingga hanya menyisakan .zip)
+
+## Soal 1a
+**Deskripsi:**\
+
 # Soal 3
 
 a. Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
+- Penyelesaian 1a
 
 b. Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari https://picsum.photos/, dimana setiap gambar akan didownload setiap 5 detik. Setiap gambar yang didownload akan diberi nama dengan format timestamp [YYYY-mm-dd_HH:ii:ss] dan gambar tersebut berbentuk persegi dengan ukuran (n%1000) + 50 pixel dimana n adalah detik Epoch Unix.
+- Penyelesaian 1b
 
 c. Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat sebuah file “status.txt”, dimana didalamnya berisi pesan “Download Success” yang terenkripsi dengan teknik Caesar Cipher dan dengan shift 5. Caesar Cipher adalah Teknik enkripsi sederhana yang dimana dapat melakukan enkripsi string sesuai dengan shift/key yang kita tentukan. Misal huruf “A” akan dienkripsi dengan shift 4 maka akan menjadi “E”. Karena Ranora orangnya perfeksionis dan rapi, dia ingin setelah file tersebut dibuat, direktori akan di zip dan direktori akan didelete, sehingga menyisakan hanya file zip saja.
 
