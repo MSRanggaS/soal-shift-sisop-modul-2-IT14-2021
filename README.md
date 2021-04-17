@@ -335,7 +335,7 @@ int main(){
     }
     while(wait(NULL) != child_id);
 ```
-- `child` 1 adalah untuk membuat folder dengan nama `petshop`
+- intinya perintah tersebut untuk membuat folder dengan nama `petshop`
 
 ```c
     child_id = fork();
