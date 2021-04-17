@@ -219,13 +219,6 @@ child_id = fork();
 memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
 
 **Pembahasan:**
-```c
-        w = time(NULL);
-        wm = localtime(&w);
-        strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
-        if(strcmp(file,"2021-04-09 16:22:00") == 0){
-```
-- 
 
 ```c
                 child_id = fork();
@@ -501,7 +494,7 @@ Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari h
 Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat sebuah file “status.txt”, dimana didalamnya berisi pesan “Download Success” yang terenkripsi dengan teknik Caesar Cipher dan dengan shift 5. Caesar Cipher adalah Teknik enkripsi sederhana yang dimana dapat melakukan enkripsi string sesuai dengan shift/key yang kita tentukan. Misal huruf “A” akan dienkripsi dengan shift 4 maka akan menjadi “E”. Karena Ranora orangnya perfeksionis dan rapi, dia ingin setelah file tersebut dibuat, direktori akan di zip dan direktori akan didelete, sehingga menyisakan hanya file zip saja.
 
 **Pembahasan**\
-```
+```c
  chdir(str);
         char message[100]="Download Success", ch;
         int i, key=5;
@@ -511,7 +504,7 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 * `char message[100]="Download Success", ch;` adalah message yang menyimpan array 100 yang bervariabel `char`yang isinya `"Dowmload Success"`
 * `key=5` adalah pergeseran huruf sebanyak 5 kali
 
-```
+```c
     for(i = 0; message[i] != '\0'; ++i){
           ch = message[i];
           
