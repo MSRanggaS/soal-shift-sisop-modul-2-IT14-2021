@@ -312,7 +312,58 @@ Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan n
 **Deskripsi:**\
 Pertama-tama program perlu mengextract zip yang diberikan ke dalam folder “/home/[user]/modul2/petshop”. Karena bos Loba teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
 
-**Pembahasan:**\
+**Pembahasan:**
+
+```c
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <syslog.h>
+#include <string.h>
+#include <wait.h>
+#include <wait.h>
+#include <time.h>
+#include <dirent.h>
+```
+- Diatas merupakan ***library*** yang digunakan untuk menunjang dan menjalankan program.
+
+```c
+int main(){
+    pid_t child_id = fork();
+
+    child_id = fork();
+    if (child_id == 0) {
+        char *argv[] = {"mkdir", "-p", "petshop", NULL};
+        execv("/bin/mkdir", argv);
+    }
+    while(wait(NULL) != child_id);
+```
+- `child` 1 adalah untuk membuat folder dengan nama `petshop`
+
+```c
+    child_id = fork();
+    if (child_id == 0) {
+        char *argv[] = {"unzip", "-q", "pets.zip", "-d", "petshop", NULL};
+        execv("/usr/bin/unzip", argv);
+    }
+    while(wait(NULL) != child_id);
+```
+- selanjutnya jika sudah membuat folder `petshop`, kita akan mengeluarkan semua file yang ada di `pets.zip` ke dalam folder `petshop`
+
+```c
+    child_id = fork();
+    if (child_id == 0) {
+    char *argv[] = {"find","petshop","-mindepth","1","-type","d","-name","*",
+                    "-exec","rm","-r","{}","+",NULL};
+    execv("/bin/find", argv);
+    }
+    while(wait(NULL) != child_id);
+```
+- di dalam folder `petshop` dan mencari file dengan kategori `folder`, dan kalau sudah menemukannya maka akan di remove
 
 ## Soal 3.a
 **Deskripsi:**\
