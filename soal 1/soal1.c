@@ -18,6 +18,7 @@ int main(){
     struct tm *wm, *tm;
     pid_t child_id = fork();
     pid = fork();   
+    int status;
 
     if (pid < 0) {
         exit(EXIT_FAILURE);
@@ -164,7 +165,8 @@ int main(){
                 execv("/usr/bin/zip", argv);
             }
             else{
-
+                
+                while((wait(&status)) > 0 );
                 child_id = fork();
                 if (child_id == 0) {
                     char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};
