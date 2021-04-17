@@ -10,11 +10,78 @@
 #include <wait.h>
 #include <time.h>
 
-int main() {
+void killer(char argc[]){
+  if(strcmp(argc,"-z") == 0){
+    FILE * fp;
+
+    fp = fopen ("killer.sh", "w+");
+    fprintf(fp, "pkill -9 new\nrm -r killer.sh");
+    
+    fclose(fp);
+  }
+  if(strcmp(argc,"-x") == 0 ){
+    FILE * fp;
+
+    fp = fopen ("killer.sh", "w+");
+    fprintf(fp, "pkill -1 new\nrm -r killer.sh");
+    
+    fclose(fp);
+  }
+
+  if (fork() == 0) {
+    char *argt[] = {"chmod", "777", "killer.sh", NULL};
+    execv("/bin/chmod", argt);
+  }
+
+}
+
+int main(int argc, char **argv) {
+    
+  pid_t pid, sid; 
+
+  pid = fork(); 
+
+  if (pid < 0) {
+    exit(EXIT_FAILURE);
+  }
+
+  if (pid > 0) {
+    exit(EXIT_SUCCESS);
+  }
+
+  umask(0);
+
+  sid = setsid();
+  if (sid < 0) {
+    exit(EXIT_FAILURE);
+  }
+
+  // if ((chdir("/")) < 0) {
+  //   exit(EXIT_FAILURE);
+  // }
+
+  close(STDIN_FILENO);
+  close(STDOUT_FILENO);
+  close(STDERR_FILENO);
+
+  while (1) {
+    
+    if(argc != 2){
+      printf("Tidak terdefinisi");
+      exit(EXIT_FAILURE);
+    }
+
+    if (strcmp(argv[1], "-x") != 0 && strcmp(argv[1], "-z") != 0) {
+      printf("Argumen kurang benar");
+      return 1;
+    }
+
+    killer(argv[1]);
+    
     pid_t child_id,child2,child3,child4;
     int status;
 
-    char str[50], url[100], file[100], save[100];
+    char str[50], url[100], file[50], save[105];
     int a;
     time_t t, w;
     t = time(NULL);
@@ -32,8 +99,8 @@ int main() {
 
     if (child_id == 0)
     {
-        char *argv[] = {"mkdir", "-p", str, NULL};
-	  	  execv("/bin/mkdir", argv);
+        char *argg[] = {"mkdir", "-p", str, NULL};
+	  	  execv("/bin/mkdir", argg);
     }
     else{
       wait(NULL);
@@ -113,19 +180,20 @@ int main() {
         child4 = fork();
         if (child4 == 0) {
 
-          char nama_file[80];
+          char nama_file[105];
           sprintf(nama_file, "%s.zip", str);
-          char *argv[] = {"zip", "-r", nama_file, str, NULL};
-          execv("/usr/bin/zip", argv);
+          char *argk[] = {"zip", "-r", nama_file, str, NULL};
+          execv("/usr/bin/zip", argk);
 
         }
 
         wait(NULL);
-        char *argv[] = {"rm", "-r", str, NULL};
-        execv("/bin/rm", argv);
+        char *argb[] = {"rm", "-r", str, NULL};
+        execv("/bin/rm", argb);
       }
-    
-    exit(0);
 
     }
+    
+    sleep(40);
+  }
 }
