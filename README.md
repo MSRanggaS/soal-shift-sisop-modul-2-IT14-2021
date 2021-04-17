@@ -13,17 +13,14 @@ Disusun oleh :
 ---
 * [Soal 1]
   * [Soal 1a](#soal-1a)
-  	* [Dokumentasi Soal 1a](#Dokumentasi-1a)  
-  * [Soal 1b](#soal-1b)
-  	* [Dokumentasi Soal 1b](#Dokumentasi-1b)  
+  * [Soal 1b](#soal-1b)  
   * [Soal 1c](#soal-1c)
-  	* [Dokumentasi Soal 1c](#Dokumentasi-1c) 
   * [Soal 1d](#soal-1d)
-  	* [Dokumentasi Soal 1d](#Dokumentasi-1d) 
   * [Soal 1e](#soal-1e)
-  	* [Dokumentasi Soal 1e](#Dokumentasi-1e) 
+  * [Soal 1f](#soal-1f)
  
 Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
+* [Dokumentasi Soal 1a](#Dokumentasi-soal1)  
 
 ---
 * [Soal 2]
@@ -77,7 +74,52 @@ Pertama, kami akan melakukan `#include` library yang diperlukan
 
 ```
 int main(){
+    pid_t pid, sid;     
+    char file[100],fole[100]; 
+    time_t w,t;
+    struct tm *wm, *tm;
+    pid_t child_id = fork();
+    pid = fork();   
+```
+-
+- Variable `t` dan `w` digunakan untuk menyimpan timestamp dalam format epoch/unix timestamp.
+- Variable `wm` akan digunakan untuk menyimpan timestamp yang sudah terstruktur sesuai dengan `localtime` nantinya
+- Lalu kami melakukan `fork()`. sehingga menghasilkan parent process dengan variable `pid` akan berisi `PID` dari child processnya dan child process dengan variable `pid` berisi nilai 0. 
 
+```
+    if (pid < 0) {
+        exit(EXIT_FAILURE);
+    }
+
+    if (pid > 0) {
+        exit(EXIT_SUCCESS);
+    }
+
+    umask(0);
+
+    sid = setsid();
+    if (sid < 0) {
+        exit(EXIT_FAILURE);
+    }
+
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+```
+- kami akan melakukan `fork()`. sehingga menghasilkan parent process dengan variable `pid` berisi `PID` dari child processnya dan child process dengan variable pid berisi nilai 0. Lalu parent process akan di keluarkan menggunakan fungsi `exit()` dengan exit statusnya.
+
+```
+ while (1) {
+
+        w = time(NULL);
+        wm = localtime(&w);
+        strftime(file, 50, "%Y-%m-%d_%H:%M:%S", wm);
+        if(strcmp(file,"2021-04-09 16:22:00") == 0){
+```
+- kami akan mengeset waktu saat ini pada variable `w` dengan fungsi `time(NULL)`. Karena format dari variable `w` masih dalam epoch/unix timestamp, sehingga perlu diubah ke bentuk format yang sudah terstandard. dan Disini kami menggunakan fungsi `localtime` dan memasukkannya kedalam variable `wm`.
+- membuat variabel `file` yang berformat [YYYY-mm-dd_HH:ii:ss] pada linux
+
+```
     pid_t child_id = fork();
     if (child_id == 0) {
         char *argv[] = {"mkdir", "-p", "Musyik", NULL};
@@ -173,49 +215,99 @@ child_id = fork();
 ```
 - `unzip` adalah perintah untuk mengextract file yang ada di file tersebut secara otomatis. Masing-masing ada `Foto`, `Musik`, `Film`
 
-```
-    child_id = fork();
-    if (child_id == 0) {
-    char *argv[] = {"find","FOTO","-type","f","-name","*",
-                    "-exec","mv","-t","Pyoto/","{}","+",NULL};
-    execv("/bin/find", argv);
-    }
-    while(wait(NULL) != child_id);
+## Soal 1d
+**Deskripsi:**\
+memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
 
-    child_id = fork();
-    if (child_id == 0) {
-    char *argv[] = {"find","MUSIK","-type","f","-name","*",
-                    "-exec","mv","-t","Musyik/","{}","+",NULL};
-    execv("/bin/find", argv);
-    }
-    while(wait(NULL) != child_id);
-
-    child_id = fork();
-    if (child_id == 0) {
-    char *argv[] = {"find","FILM","-type","f","-name","*",
-                    "-exec","mv","-t","Fylm/","{}","+",NULL};
-    execv("/bin/find", argv);
-    }
-    while(wait(NULL) != child_id);
+**Pembahasan:**
 ```
-- Perintah untuk 
+        w = time(NULL);
+        wm = localtime(&w);
+        strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
+        if(strcmp(file,"2021-04-09 16:22:00") == 0){
+```
+- 
 
 ```
-   child_id = fork();
-    if (child_id == 0) {
-    char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};
-    execv("/usr/bin/zip", argv);
-    }
-    while(wait(NULL) != child_id);
+                child_id = fork();
+                if (child_id == 0) {
+                char *argv[] = {"find","FOTO","-type","f","-name","*",
+                                "-exec","mv","-t","Pyoto/","{}","+",NULL};
+                execv("/bin/find", argv);
+                }
+                while(wait(NULL) != child_id);
 
-    child_id = fork();
-    if (child_id == 0) {
-    char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};
-    execv("/bin/rm", argv);
-    }
-    while(wait(NULL) != child_id);
+                child_id = fork();
+                if (child_id == 0) {
+                char *argv[] = {"find","MUSIK","-type","f","-name","*",
+                                "-exec","mv","-t","Musyik/","{}","+",NULL};
+                execv("/bin/find", argv);
+                }
+                while(wait(NULL) != child_id);
+
+                child_id = fork();
+                if (child_id == 0) {
+                char *argv[] = {"find","FILM","-type","f","-name","*",
+                                "-exec","mv","-t","Fylm/","{}","+",NULL};
+                execv("/bin/find", argv);
+                }
+                while(wait(NULL) != child_id);
+
+            }            
+
+            break;
 ```
-- Perintah untuk 
+- intinya perintah tersebut untuk mencari sebuah file dalam folder `FOTO` dengan format `name`. Setelah menemukan foldernya, maka semua file yang ada di `FOTO` dipindah ke folder `Pyoto`. begitu juga yang dialami oleh `MUSIK`, `FILM`.
+- lalu `break` berfungsi buat ketika fungsi `for` selesai maka akan keluar dari fungsi tersebut dan melanjutkan perintah selanjutnya 
+
+## Soal 1e
+**Deskripsi:**\
+Untuk memudahkan Steven, ia ingin semua hal di atas berjalan otomatis 6 jam sebelum waktu ulang tahun Stevany
+
+**Pembahasan:**\
+``
+        w = time(NULL);
+        wm = localtime(&w);
+        strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
+        if(strcmp(file,"2021-04-09 16:22:00") == 0){
+``
+- kami akan mengeset waktu saat ini pada variable `w` dengan fungsi `time(NULL)`. Karena format dari variable `w` masih dalam epoch/unix timestamp, sehingga perlu diubah ke bentuk format yang sudah terstandard. dan Disini kami menggunakan fungsi `localtime` dan memasukkannya kedalam variable `wm`.
+- membuat variabel `file` yang berformat [YYYY-mm-dd_HH:ii:ss] pada linux
+
+## Soal 1f
+**Deskripsi:**\
+Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan nama Lopyu_Stevany.zip dan semua folder akan di delete(sehingga hanya menyisakan .zip
+
+**Pembahasan:**\
+
+```
+   while (1) {
+
+        w = time(NULL);
+        wm = localtime(&w);
+        strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
+        if(strcmp(file,"2021-04-09 22:22:00") == 0){
+
+            child_id = fork();
+            if (child_id == 0) {
+                char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};
+                execv("/usr/bin/zip", argv);
+            }
+            else{
+
+                child_id = fork();
+                if (child_id == 0) {
+                    char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};
+                    execv("/bin/rm", argv);
+                }
+                while(wait(NULL) != child_id);
+
+            }
+
+            break;
+```
+- ` char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};` yang artinya membuat file `zip` yang berisikan file `Pyoto`, `Musyik`, `Fylm`
+-  `char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};` selesai membuat `zip`, folder `FOTO`, `FILM`, `MUSIK`, `Pyoto`, `Fylm`, `Musyik` akan dihapus menggunakan perintah `rm`
 
 ## Soal 3.a
 **Deskripsi:**\
