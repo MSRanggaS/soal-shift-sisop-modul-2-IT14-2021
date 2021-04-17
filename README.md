@@ -57,7 +57,7 @@ Dikarenakan Stevany sangat menyukai huruf Y, Steven ingin nama folder-foldernya 
 
 **Pembahasan:**\
 Pertama, kami akan melakukan `#include` library yang diperlukan
-```
+```c
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -72,7 +72,7 @@ Pertama, kami akan melakukan `#include` library yang diperlukan
 ```
 - Diatas merupakan ***library*** yang digunakan untuk menunjang dan menjalankan program.
 
-```
+```c
 int main(){
     pid_t pid, sid;     
     char file[100],fole[100]; 
@@ -81,12 +81,11 @@ int main(){
     pid_t child_id = fork();
     pid = fork();   
 ```
--
 - Variable `t` dan `w` digunakan untuk menyimpan timestamp dalam format epoch/unix timestamp.
 - Variable `wm` akan digunakan untuk menyimpan timestamp yang sudah terstruktur sesuai dengan `localtime` nantinya
 - Lalu kami melakukan `fork()`. sehingga menghasilkan parent process dengan variable `pid` akan berisi `PID` dari child processnya dan child process dengan variable `pid` berisi nilai 0. 
 
-```
+```c
     if (pid < 0) {
         exit(EXIT_FAILURE);
     }
@@ -108,7 +107,7 @@ int main(){
 ```
 - kami akan melakukan `fork()`. sehingga menghasilkan parent process dengan variable `pid` berisi `PID` dari child processnya dan child process dengan variable pid berisi nilai 0. Lalu parent process akan di keluarkan menggunakan fungsi `exit()` dengan exit statusnya.
 
-```
+```c
  while (1) {
 
         w = time(NULL);
@@ -119,7 +118,7 @@ int main(){
 - kami akan mengeset waktu saat ini pada variable `w` dengan fungsi `time(NULL)`. Karena format dari variable `w` masih dalam epoch/unix timestamp, sehingga perlu diubah ke bentuk format yang sudah terstandard. dan Disini kami menggunakan fungsi `localtime` dan memasukkannya kedalam variable `wm`.
 - membuat variabel `file` yang berformat [YYYY-mm-dd_HH:ii:ss] pada linux
 
-```
+```c
     pid_t child_id = fork();
     if (child_id == 0) {
         char *argv[] = {"mkdir", "-p", "Musyik", NULL};
@@ -149,7 +148,7 @@ int main(){
  untuk musik Steven mendownloadnya dari link di bawah, film dari link di bawah lagi, dan foto dari link dibawah juga
  
  **Pembahasan:**\
-```
+```c
  child_id = fork();
     if (child_id == 0) {
         char *args[] = {"wget","--no-check-certificate", "-q", 
@@ -161,7 +160,7 @@ int main(){
 ```
 - Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Foto_for_Stevany.zip`
 
-```
+```c
     child_id = fork();
     if (child_id == 0) {
         char *args[] = {"wget","--no-check-certificate", "-q", 
@@ -173,7 +172,7 @@ int main(){
 ```
 - Perintah tersebut akan mendownload dari google drive tersebut yang akan dinamai `Musik_for_Stevany.zip`
 
-```
+```c
     child_id = fork();
     if (child_id == 0) {
         char *args[] = {"wget","--no-check-certificate", "-q", 
@@ -191,7 +190,7 @@ Steven tidak ingin isi folder yang dibuatnya berisikan zip, sehingga perlu meng-
 
 **Pembahasan:**
 
-```
+```c
 child_id = fork();
     if (child_id == 0) {
         char *argv[] = {"unzip", "-q", "Foto_for_Stevany.zip", NULL};
@@ -220,7 +219,7 @@ child_id = fork();
 memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
 
 **Pembahasan:**
-```
+```c
         w = time(NULL);
         wm = localtime(&w);
         strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
@@ -228,7 +227,7 @@ memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
 ```
 - 
 
-```
+```c
                 child_id = fork();
                 if (child_id == 0) {
                 char *argv[] = {"find","FOTO","-type","f","-name","*",
@@ -265,12 +264,12 @@ memindahkannya ke dalam folder yang telah dibuat (hanya file yang dimasukkan)
 Untuk memudahkan Steven, ia ingin semua hal di atas berjalan otomatis 6 jam sebelum waktu ulang tahun Stevany
 
 **Pembahasan:**\
-``
+```c
         w = time(NULL);
         wm = localtime(&w);
         strftime(file, 50, "%Y-%m-%d %H:%M:%S", wm);
         if(strcmp(file,"2021-04-09 16:22:00") == 0){
-``
+```
 - kami akan mengeset waktu saat ini pada variable `w` dengan fungsi `time(NULL)`. Karena format dari variable `w` masih dalam epoch/unix timestamp, sehingga perlu diubah ke bentuk format yang sudah terstandard. dan Disini kami menggunakan fungsi `localtime` dan memasukkannya kedalam variable `wm`.
 - membuat variabel `file` yang berformat [YYYY-mm-dd_HH:ii:ss] pada linux
 
@@ -280,7 +279,7 @@ Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan n
 
 **Pembahasan:**\
 
-```
+```c
    while (1) {
 
         w = time(NULL);
@@ -308,6 +307,12 @@ Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan n
 ```
 - ` char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};` yang artinya membuat file `zip` yang berisikan file `Pyoto`, `Musyik`, `Fylm`
 -  `char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};` selesai membuat `zip`, folder `FOTO`, `FILM`, `MUSIK`, `Pyoto`, `Fylm`, `Musyik` akan dihapus menggunakan perintah `rm`
+
+## Soal 2.a
+**Deskripsi:**\
+Pertama-tama program perlu mengextract zip yang diberikan ke dalam folder “/home/[user]/modul2/petshop”. Karena bos Loba teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
+
+**Pembahasan:**\
 
 ## Soal 3.a
 **Deskripsi:**\
