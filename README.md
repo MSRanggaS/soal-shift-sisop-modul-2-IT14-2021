@@ -20,7 +20,7 @@ Disusun oleh :
   * [Soal 1f](#soal-1f)
  
 Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal1/soal1.c)
-* [Dokumentasi Soal 1a](#Dokumentasi-soal1)  
+* [Dokumentasi Soal 1](#Dokumentasi-soal1)  
 
 ---
 * [Soal 2]
@@ -33,6 +33,7 @@ Source Code : [soal1.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T1
   * [Dokumentasi Soal 2](#Dokumentasi-soal2)
 
 Source Code : [soal2.c]
+* [Dokumentasi Soal 2](#Dokumentasi-soal2)  
 
 ---
 * [Soal 3]
@@ -48,6 +49,7 @@ Source Code : [soal2.c]
   	* [Dokumentasi Soal3e](#Dokumentasi-3e)	 
 
 Source Code : [soal3.c](https://github.com/MSRanggaS/soal-shift-sisop-modul-2-T14-2021/blob/master/soal3/soal3.c/)
+* [Dokumentasi Soal3](#Dokumentasi-soal3)  
 
 ---
 
@@ -444,8 +446,6 @@ int main() {
  * jika tidak, maka `child_id` akan menunggu dan melakukan proses `child2`
  * pada bagian `for (int i = 0; i < 10; i++)` akan melakukan perulangan download gambar sebanyak 10 kali pada setiap folder
  
-# Dokumentasi 3a
-<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 
 * pada window sebelah kiri adalah tampilan dari zip yang berisikan sebuah folder bernama tanggal dan waktu setempat dengan isi 10 foto dan status.txt yang berisi `Download Success` yang sudah di encrypt
 
@@ -485,9 +485,6 @@ Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari h
 * Perintah `strftime(file, 50, "%Y-%m-%d_%H:%M:%S", wm);`adalah format penamaan file [YYYY-mm-dd_HH:ii:ss]
 * Perintah `sprintf (save, "%s/%s", str, file);` adalah perintah save file
 * Perintah `wget` berfungsi untuk mendowload otomatis
-
-## Dokumentasi 3b
-<img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
 
 ## Soal 3c
 **Deskripsi:**\
@@ -535,5 +532,7 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 * begitu juga sama yang dialami pada 'A' dan 'Z'
 
 
-## Dokumentasi 3c
+# Dokumentasi Soal3
+<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
 <img src="https://user-images.githubusercontent.com/61973814/114990579-d9cf0800-9ec2-11eb-9d3a-344250f90603.png">
+<img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
