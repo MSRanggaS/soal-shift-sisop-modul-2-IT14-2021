@@ -122,8 +122,9 @@ int main(){
 
                 child_id = fork();
                 if (child_id == 0) {
-                char *argv[] = {"find","FOTO","-type","f","-name","*",
+                char *argv[] = {"find","FOTO","-type","f","-name","*.jpg",
                                 "-exec","mv","-t","Pyoto/","{}","+",NULL};
+
                 execv("/bin/find", argv);
                 }
                 while(wait(NULL) != child_id);
