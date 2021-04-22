@@ -11,32 +11,21 @@
 #include <time.h>
 
 void killer(char argc[]){
-  if(strcmp(argc,"-z") == 0){
-    FILE * fp;
-
-    fp = fopen ("killer.sh", "w+");
-    fprintf(fp, "pkill -9 new\nrm -r killer.sh");
-    
-    fclose(fp);
-  }
-  if(strcmp(argc,"-x") == 0 ){
-    FILE * fp;
-
-    fp = fopen ("killer.sh", "w+");
-    fprintf(fp, "pkill -1 new\nrm -r killer.sh");
-    
-    fclose(fp);
-  }
-
-  if (fork() == 0) {
-    char *argt[] = {"chmod", "777", "killer.sh", NULL};
-    execv("/bin/chmod", argt);
-  }
-
+  
 }
 
 int main(int argc, char **argv) {
     
+  if(argc != 2){
+    printf("Tidak terdefinisi, diharapkan ./new -z | ./new -x\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if (strcmp(argv[1], "-x") != 0 && strcmp(argv[1], "-z") != 0) {
+    printf("Argumen kurang benar\n");
+    return 1;
+  }
+
   pid_t pid, sid; 
 
   pid = fork(); 
@@ -56,6 +45,41 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  //killer(argv[1]);
+
+  if(strcmp(argv[1],"-z") == 0){
+    FILE *fileKiller;
+    fileKiller = fopen("killer.sh", "w+");
+    
+    char *contents = ""
+    "#!/bin/bash\n"
+    "/usr/bin/pkill -9 -s \"%d\"\n"
+    "/bin/rm killer.sh";
+    fprintf(fileKiller, contents, sid);
+
+    fclose(fileKiller);
+  }
+  if(strcmp(argv[1],"-x") == 0 ){
+    FILE *fileKiller;
+    fileKiller = fopen("killer.sh", "w+");
+
+    char *contents = ""
+    "#!/bin/bash\n"
+    "/usr/bin/kill -9 \"%d\"\n"
+    "/bin/rm killer.sh";
+    fprintf(fileKiller, contents, getpid());
+    
+    fclose(fileKiller);
+  }
+
+  pid = fork();
+  if (pid == 0) {
+    char *argt[] = {"chmod", "777", "killer.sh", NULL};
+    execv("/bin/chmod", argt);
+  }
+
+  while(wait(NULL) != pid);
+
   // if ((chdir("/")) < 0) {
   //   exit(EXIT_FAILURE);
   // }
@@ -65,18 +89,6 @@ int main(int argc, char **argv) {
   close(STDERR_FILENO);
 
   while (1) {
-    
-    if(argc != 2){
-      printf("Tidak terdefinisi");
-      exit(EXIT_FAILURE);
-    }
-
-    if (strcmp(argv[1], "-x") != 0 && strcmp(argv[1], "-z") != 0) {
-      printf("Argumen kurang benar");
-      return 1;
-    }
-
-    killer(argv[1]);
     
     pid_t child_id,child2,child3,child4;
     int status;
@@ -113,35 +125,33 @@ int main(int argc, char **argv) {
 
       if (child2 == 0){
 
-          for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
 
-          child3 = fork();
+        child3 = fork();
 
-          if (child3 < 0){
-          exit(EXIT_FAILURE);
-          }
+        if (child3 < 0){
+        exit(EXIT_FAILURE);
+        }
 
-          if (child3 == 0) {
+        if (child3 == 0) {
 
-            w = time(NULL);
-            wm = localtime(&w);
-            a = (w%1000)+50;
-            sprintf (url, "https://picsum.photos/%d", a);
-            strftime(file, 50, "%Y-%m-%d_%H:%M:%S", wm);
-            sprintf (save, "%s/%s", str, file);
-            char *args[] = {"wget","--no-check-certificate", "-q", "-O", save, url, NULL};
+          w = time(NULL);
+          wm = localtime(&w);
+          a = (w%1000)+50;
+          sprintf (url, "https://picsum.photos/%d", a);
+          strftime(file, 50, "%Y-%m-%d_%H:%M:%S", wm);
+          sprintf (save, "%s/%s", str, file);
+          char *args[] = {"wget","--no-check-certificate", "-q", "-O", save, url, NULL};
 
-            execv("/usr/bin/wget", args);
-
-          }
-          else{
-            wait(NULL);
-          }
-
-          sleep(5);
+          execv("/usr/bin/wget", args);
 
         }
 
+        sleep(5); 
+
+        }
+
+        while(wait(NULL) >0);
         chdir(str);
         char message[100]="Download Success", ch;
         int i, key=5;
@@ -195,5 +205,6 @@ int main(int argc, char **argv) {
     }
     
     sleep(40);
+    
   }
 }
