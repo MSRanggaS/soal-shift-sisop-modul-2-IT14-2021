@@ -541,5 +541,13 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 - melakukan pembuatan folder bernama `waktu setempat` dan kemudian pendownloadan gambar pada link dan akan mendownload setiap 10 gambar yang ada
 
 <img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
+
+-
+
 <img src="https://user-images.githubusercontent.com/61416036/114983865-50680780-9ebb-11eb-8de7-43fd56d9ee1c.png">
+
+- Membuat file `status.text` yang isi text nya adalah `Download Success`, setelah itu kita encrypt dan di masukkan ke dalam zip
+  
 <img src="https://user-images.githubusercontent.com/61416036/115736365-71e25b00-a3b5-11eb-8a44-788c79915d70.png">
+
+-
