@@ -303,6 +303,10 @@ Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan n
 - ` char *argv[] = {"zip", "-r", "Lopyu_Stevany.zip", "Pyoto", "Musyik", "Fylm", NULL};` yang artinya membuat file `zip` yang berisikan file `Pyoto`, `Musyik`, `Fylm`
 -  `char *argv[] = {"rm", "-r", "FILM", "FOTO", "MUSIK", "Pyoto", "Fylm", "Musyik", NULL};` selesai membuat `zip`, folder `FOTO`, `FILM`, `MUSIK`, `Pyoto`, `Fylm`, `Musyik` akan dihapus menggunakan perintah `rm`
 
+# Dokumentasi Soal1
+<img src="https://user-images.githubusercontent.com/61416036/115102885-0f81f880-9f78-11eb-94db-59c62e0c4b51.png">
+<img src="https://user-images.githubusercontent.com/61416036/115102881-0db83500-9f78-11eb-8420-fe3a64d71f87.png">
+
 ## Soal 2.a
 **Deskripsi:**\
 Pertama-tama program perlu mengextract zip yang diberikan ke dalam folder “/home/[user]/modul2/petshop”. Karena bos Loba teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
@@ -325,6 +329,9 @@ Pertama-tama program perlu mengextract zip yang diberikan ke dalam folder “/ho
 #include <dirent.h>
 ```
 - Diatas merupakan ***library*** yang digunakan untuk menunjang dan menjalankan program.
+
+# Dokumentasi Soal2
+<img src="https://user-images.githubusercontent.com/61416036/115104218-27aa4580-9f81-11eb-9f08-6819cfc2fb62.png">
 
 ```c
 int main(){
@@ -533,6 +540,7 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 
 
 # Dokumentasi Soal3
-<img src="https://user-images.githubusercontent.com/61416036/114983849-4e05ad80-9ebb-11eb-943f-c05d42f49cec.png">
-<img src="https://user-images.githubusercontent.com/61973814/114990579-d9cf0800-9ec2-11eb-9d3a-344250f90603.png">
+<img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
 <img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
+<img src="https://user-images.githubusercontent.com/61416036/114983865-50680780-9ebb-11eb-8de7-43fd56d9ee1c.png">
+<img src="https://user-images.githubusercontent.com/61416036/115736365-71e25b00-a3b5-11eb-8a44-788c79915d70.png">
