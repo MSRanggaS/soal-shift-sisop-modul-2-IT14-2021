@@ -13,7 +13,22 @@
 #include <dirent.h>
 
 int main(){
-    pid_t child_id = fork();
+
+    char pathdirectory[] = "/home/shaladin/'modul 2'/praktikum/'soal 2'/petshop/";
+    pid_t child_id;
+    if ((chdir(pathdirectory)) < 0) {
+        exit(EXIT_FAILURE);
+    }
+    child_id = fork();
+
+    child_id = fork();
+    if (child_id == 0) {
+        char *args[] = {"wget","--no-check-certificate", "-q", 
+        "https://drive.google.com/uc?id=1g5rehatLEkqvuuK_eooHJXB57EfdnxVD&export=download",
+        "-O", "pets.zip", NULL};
+        execv("/usr/bin/wget", args);
+    }
+    while(wait(NULL) != child_id);
 
     child_id = fork();
     if (child_id == 0) {
