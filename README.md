@@ -536,6 +536,45 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 Untuk mempermudah pengendalian program, pembimbing magang Ranora ingin program tersebut akan men-generate sebuah program “Killer” yang executable, dimana program tersebut akan menterminasi semua proses program yang sedang berjalan dan akan menghapus dirinya sendiri setelah program dijalankan. Karena Ranora menyukai sesuatu hal yang baru, maka Ranora memiliki ide untuk program “Killer” yang dibuat nantinya harus merupakan program bash.
 
 **Pembahasan:**\
+Untuk men-generate sebuah program yang bisa menterminasi semua operasi program, kami pertama membuat file yang akan kami inputkan dengan kode C.
+```c
+ FILE *fileKiller;
+    fileKiller = fopen("killer.sh", "w+");
+```
+- `fileKiller` akan digunakan sebagai pointer ke-file yang diinginkan
+- `fopen`digunakan untuk membuka file yang diinginkan, karena mode yang kami gunakan adalah `w+` sehingga akan membuat file baru dan melakukan proses writing.
+- Deklarasi diatas dilakukan sebelum bagian loop utama daemon dan setelah mendapatkan Session ID (`sid`).
+
+```c
+ char *contents = ""
+    "#!/bin/bash\n"
+    "/usr/bin/pkill -9 -s \"%d\"\n"
+    "/bin/rm killer.sh";
+    fprintf(fileKiller, contents, sid);
+```
+Lalu file `killer.sh` akan melakukan perintah pkill sesuai dengan Session ID (`sid`) dari program utama (Penggunaan Session ID agar seluruh child process juga ikut di kill melalui perintah pkill). Lalu program killer tersebut akan menghapus dirinya sendiri. Cara tersebut dapat dilakukan dengan melakukan `fork()` dimana child process akan melakukan `pkill` dan `parent` process akan menunggu `child` process dan melakukan `rm`. Lalu string tersebut diwrite kedalam `fileKiller` dengan fungsi `fprintf().`
+
+```c
+ fclose(fileKiller);
+```
+Lalu pointer file (`fileKiller`) akan ditutup koneksinya menggunakan fungsi `fclose()`.
+
+```c
+  pid = fork();
+  if (pid == 0) {
+    char *argt[] = {"chmod", "777", "killer.sh", NULL};
+    execv("/bin/chmod", argt);
+  }
+
+  while(wait(NULL) != pid);
+```
+Lalu program utama akan membuat `child` process untuk melakukan compile terhadap file `killer.sh` menggunakan perintah chmod. Setelah itu program utama akan membuat child process kembali untuk melakukan remove terhadap file `killer.sh` menggunakan perintah `rm`.
+
+## Soal 3e
+**Deskripsi:**\
+Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora dapat dijalankan di dalam dua mode. Untuk mengaktifkan mode pertama, program harus dijalankan dsdengan argumen -z, dan Ketika dijalankan dalam mode pertama, program utama akan langsung menghentikan semua operasinya Ketika program Killer dijalankan. Sedangkan untuk mengaktifkan mode kedua, program harus dijalankan dengan argumen -x, dan Ketika dijalankan dalam mode kedua, program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
+
+**Pembahasan:**\
 ```c
 void killer(char argc[]){
   
@@ -553,15 +592,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 ```
-- 
+banyaknya argument akan dicek dan `argv[]` akan dicek apakah sesuai dengan mode yang ada.
 
-## Soal 3e
-**Deskripsi:**\
-Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora dapat dijalankan di dalam dua mode. Untuk mengaktifkan mode pertama, program harus dijalankan dsdengan argumen -z, dan Ketika dijalankan dalam mode pertama, program utama akan langsung menghentikan semua operasinya Ketika program Killer dijalankan. Sedangkan untuk mengaktifkan mode kedua, program harus dijalankan dengan argumen -x, dan Ketika dijalankan dalam mode kedua, program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
-
-**Pembahasan:**\
 ```c
- if(strcmp(argv[1],"-z") == 0){
+  if(strcmp(argv[1],"-z") == 0){
     FILE *fileKiller;
     fileKiller = fopen("killer.sh", "w+");
     
@@ -587,8 +621,7 @@ Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora da
   }
 
 ```
-- `-z` adalah perintah ketika menjalankan program, perintah `-z` tersebut akan langsung menghentikan semua operasinya Ketika program Killer dijalankan
-- `-x` adalah perintah ini dijalankan, maka program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
+Lalu, pada proses mendefinisian string untuk diinputkan pada [Soal 3d](#soal-3d)., akan dicek untuk masing masing arguments dan akan diberikan input yang berbeda. Untuk argument `-z` akan menggunakan input yang sama dengan Soal 2.d.. Untuk argument `-x` akan menggunakan perintah kill kepada Process ID yang dimiliki oleh process utama. Untuk mendapatkannya, kami menggunakan fungsi `getpid()`. Lalu pada masing-masing mode akan diwrite pada `fileKiller` dengan input yang sesuai dan Session ID atau Process ID yang sesuai. Setelah itu, program itu akan di-compile dan di-remove dengan metode yang sama seperti [Soal 3d](#soal-3d).
 
 # Dokumentasi Soal3
 <img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
