@@ -472,13 +472,9 @@ Setiap direktori yang sudah dibuat diisi dengan 10 gambar yang didownload dari h
             execv("/usr/bin/wget", args);
 
           }
-          else{
-            wait(NULL);
-          }
 
           sleep(5);
 
-        }
           }
 ```
 
@@ -495,6 +491,7 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 
 **Pembahasan**\
 ```c
+ while(wait(NULL) >0);
  chdir(str);
         char message[100]="Download Success", ch;
         int i, key=5;
@@ -534,6 +531,64 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 * jika `ch > z` maka akan `- 'z' + 'a' -1`
 * begitu juga sama yang dialami pada 'A' dan 'Z'
 
+## Soal 3d
+**Deskripsi:**\
+Untuk mempermudah pengendalian program, pembimbing magang Ranora ingin program tersebut akan men-generate sebuah program “Killer” yang executable, dimana program tersebut akan menterminasi semua proses program yang sedang berjalan dan akan menghapus dirinya sendiri setelah program dijalankan. Karena Ranora menyukai sesuatu hal yang baru, maka Ranora memiliki ide untuk program “Killer” yang dibuat nantinya harus merupakan program bash.
+
+**Pembahasan:**\
+```c
+void killer(char argc[]){
+  
+}
+
+int main(int argc, char **argv) {
+    
+  if(argc != 2){
+    printf("Tidak terdefinisi, diharapkan ./new -z | ./new -x\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if (strcmp(argv[1], "-x") != 0 && strcmp(argv[1], "-z") != 0) {
+    printf("Argumen kurang benar\n");
+    return 1;
+  }
+```
+- 
+
+## Soal 3e
+**Deskripsi:**\
+Pembimbing magang Ranora juga ingin nantinya program utama yang dibuat Ranora dapat dijalankan di dalam dua mode. Untuk mengaktifkan mode pertama, program harus dijalankan dsdengan argumen -z, dan Ketika dijalankan dalam mode pertama, program utama akan langsung menghentikan semua operasinya Ketika program Killer dijalankan. Sedangkan untuk mengaktifkan mode kedua, program harus dijalankan dengan argumen -x, dan Ketika dijalankan dalam mode kedua, program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
+
+**Pembahasan:**\
+```c
+ if(strcmp(argv[1],"-z") == 0){
+    FILE *fileKiller;
+    fileKiller = fopen("killer.sh", "w+");
+    
+    char *contents = ""
+    "#!/bin/bash\n"
+    "/usr/bin/pkill -9 -s \"%d\"\n"
+    "/bin/rm killer.sh";
+    fprintf(fileKiller, contents, sid);
+
+    fclose(fileKiller);
+  }
+  if(strcmp(argv[1],"-x") == 0 ){
+    FILE *fileKiller;
+    fileKiller = fopen("killer.sh", "w+");
+
+    char *contents = ""
+    "#!/bin/bash\n"
+    "/usr/bin/kill -9 \"%d\"\n"
+    "/bin/rm killer.sh";
+    fprintf(fileKiller, contents, getpid());
+    
+    fclose(fileKiller);
+  }
+
+```
+- `-z` adalah perintah ketika menjalankan program, perintah `-z` tersebut akan langsung menghentikan semua operasinya Ketika program Killer dijalankan
+- `-x` adalah perintah ini dijalankan, maka program utama akan berhenti namun membiarkan proses di setiap direktori yang masih berjalan hingga selesai (Direktori yang sudah dibuat akan mendownload gambar sampai selesai dan membuat file txt, lalu zip dan delete direktori).
 
 # Dokumentasi Soal3
 <img src="https://user-images.githubusercontent.com/61416036/114886765-04bd4b80-9e32-11eb-9239-65f6a3b0d356.png">
@@ -542,7 +597,7 @@ Setelah direktori telah terisi dengan 10 gambar, program tersebut akan membuat s
 
 <img src="https://user-images.githubusercontent.com/61416036/114983857-4fcf7100-9ebb-11eb-90ef-1ce6c77d49dc.png">
 
--
+- mendownload 10 gambar dari drive, dan menyimpannya dengan format folder [YYYY-mm-dd_HH:ii:ss]
 
 <img src="https://user-images.githubusercontent.com/61416036/114983865-50680780-9ebb-11eb-8de7-43fd56d9ee1c.png">
 
